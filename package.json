@@ -1,5 +1,24 @@
 {
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/maryreyes81/ProyectoFinalJS3#readme",
+  "bugs": {
+    "url": "https://github.com/maryreyes81/ProyectoFinalJS3/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maryreyes81/ProyectoFinalJS3.git"
+  },
+  "license": "ISC",
+  "author": "Mary Reyes",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "boolean": "^3.2.0"
-  }
+  },
+  "devDependencies": {}
 }
