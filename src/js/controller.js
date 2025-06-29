@@ -1,4 +1,5 @@
 import { icons } from "../img.icons.svg";
+import { model } from "./model";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -43,7 +44,7 @@ async function showRecipe() {
     const data = await resp.json();
     console.log("Datos de la receta", data);
 
-    const recipeData = data.data; // Aquí se crea la variable recipe
+    const recipeData = data.data.recipe; // Aquí se crea la variable recipe
     console.log("Receta:", recipe);
 
     const recipe = {
@@ -58,7 +59,7 @@ async function showRecipe() {
     };
 
     const ingredientsHTML = recipe.ingredients
-      .map((img) => {
+      .map((ing) => {
         return `
  <li class="recipe__ingredient">
  <svg class="recipe__icon">
@@ -76,9 +77,8 @@ async function showRecipe() {
 
     const markup = `
         <figure class="recipe__fig">
-          <img src="${recipe.imagen}" alt="Tomato" class="recipe__img" />
-          <h1 class="recipe__title">
-            <span>${recipe.title}</span>
+          <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
+          <h1 class="recipe__title"> <span>${recipe.title}</span>
           </h1>
         </figure>
 
@@ -90,6 +90,7 @@ async function showRecipe() {
             <span class="recipe__info-data recipe__info-data--minutes">${recipe.cookTime}</span>
             <span class="recipe__info-text">minutes</span>
           </div>
+
           <div class="recipe__info">
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-users"></use>
@@ -159,9 +160,7 @@ async function showRecipe() {
           </p>
           <a
             class="btn--small recipe__btn"
-            href="${recipe.sourceUrl}"
-            target="_blank"
-          >
+            href="${recipe.sourceUrl}" target="_blank">
             <span>Directions</span>
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-right"></use>
@@ -183,5 +182,19 @@ async function showRecipe() {
 showRecipe(); // Llama a la función para probarla
 
 ["hashchange", "load"].forEach((ev) => {
-  window.addEventListener("ev", "showRecipe");
+  window.addEventListener(ev, showRecipe);
 });
+
+
+ const loadRecipe = async function (){
+  try{
+const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
+const data = await res.json;
+console.log(recipe);
+
+
+  } catch(err){
+    alert("Error en loadRecipe", err);
+  }
+ };
