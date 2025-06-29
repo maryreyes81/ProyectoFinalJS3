@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "forkify",
   "version": "1.0.0",
   "description": "",
   "homepage": "https://github.com/maryreyes81/ProyectoFinalJS3#readme",
@@ -13,12 +13,16 @@
   "license": "ISC",
   "author": "Mary Reyes",
   "type": "commonjs",
-  "main": "index.js",
+  "source": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "dependencies": {
     "boolean": "^3.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.15.4",
+    "parcel": "^2.15.4"
+  }
 }
