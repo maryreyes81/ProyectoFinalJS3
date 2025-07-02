@@ -1,5 +1,5 @@
 
-import { icons } from "../img.icons.svg";
+import icons  from "url../img.icons.svg";
 import RecipeView from "./views/RecipeView.js";
 
 const timeout = function (s) {
