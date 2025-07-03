@@ -1,16 +1,15 @@
+import icons from "url:../img/icons.svg";
+import { Fraction } from "fractional";
 
-import icons from 'url:../img/icons.svg'; 
-
-export default class RecipeView {
-#parentElement = document.querySelector('.recipe');
+class RecipeView {
+  #parentElement = document.querySelector(".recipe");
   #data;
 
-
- render(data) {
-     this.#data = data;
-      const markup = this.#generateMarkup();
- this.#clear();
-  this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  render(data) {
+    this.#data = data;
+    const markup = this.#generateMarkup();
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
   renderSpinner() {
@@ -21,19 +20,29 @@ export default class RecipeView {
         </svg>
       </div>
     `;
-    this.#parentElement.innerHTML = '';
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this.#parentElement.innerHTML = "";
+    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
+  // Ejecutar controlRecipes cuando cambia el hash o se carga la página
+  addHandlerRender(handler) {
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    );
+  }
 
   #clear() {
-    this.#parentElement.innerHTML = '';
+    this.#parentElement.innerHTML = "";
   }
 
- #generateMarkup() {
-return`  <figure class="recipe__fig">
-          <img src="${this.#data.image}" alt="Tomato" class="recipe__img" />
-          <h1 class="recipe__title"> <span>${this.#data.title}</span>
+  #generateMarkup() {
+    return `
+    <figure class="recipe__fig">
+          <img src="${this.#data.image}" alt="${
+      this.#data.title
+    }" class="recipe__img" />
+          <h1 class="recipe__title"> <span>
+          ${this.#data.title}</span>
           </h1>
         </figure>
 
@@ -42,7 +51,9 @@ return`  <figure class="recipe__fig">
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-clock"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookTime}</span>
+            <span class="recipe__info-data recipe__info-data--minutes">${
+              this.#data.cookTime
+            }</span>
             <span class="recipe__info-text">minutes</span>
           </div>
 
@@ -50,7 +61,9 @@ return`  <figure class="recipe__fig">
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-users"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
+            <span class="recipe__info-data recipe__info-data--people">${
+              this.#data.servings
+            }</span>
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
@@ -81,36 +94,34 @@ return`  <figure class="recipe__fig">
 
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
-          <ul class="recipe__ingredient-list">
+          <ul class="recipe__ingredient-list">${this.#data.ingredients
+            .map((ing) => {
+              return `
             <li class="recipe__ingredient">
-              <svg class="recipe__icon">
+            <svg class="recipe__icon">
                 <use href="${icons}#icon-check"></use>
               </svg>
-              <div class="recipe__quantity">1000</div>
-              <div class="recipe__description">
-                <span class="recipe__unit">g</span>
-                pasta
+            <div class="recipe__quantity">${
+              ing.quantity ? new Fraction(ing.quantity).toString() : ""
+            }</div>
+            <div class="recipe__description">
+             <span class="recipe__unit">${ing.unit}</span>
+             ${ing.descripction}
               </div>
-            </li>
+            </li> `;
+            })
+            .join("")}
+            </ul>
+            </div>
 
-            <li class="recipe__ingredient">
-              <svg class="recipe__icon">
-                <use href="${icons}#icon-check"></use>
-              </svg>
-              <div class="recipe__quantity">0.5</div>
-              <div class="recipe__description">
-                <span class="recipe__unit">cup</span>
-                ricotta cheese
-              </div>
-            </li>
-          </ul>
-        </div>
-
+        
         <div class="recipe__directions">
           <h2 class="heading--2">How to cook it</h2>
           <p class="recipe__directions-text">
             This recipe was carefully designed and tested by
-            <span class="recipe__publisher">${this.#data.publisher}</span>. Please check out
+            <span class="recipe__publisher">${
+              this.#data.publisher
+            }</span>. Please check out
             directions at their website.
           </p>
           <a
@@ -123,5 +134,7 @@ return`  <figure class="recipe__fig">
           </a>
         </div>
         `;
- }
+  }
 }
+
+export default new RecipeView();

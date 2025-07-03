@@ -1,18 +1,30 @@
+import { API_URL, TIMEOUT_SEC } from "./config.js";
+import { timeout, getJSON } from "./helpers.js";
+
 export const state = {
   recipe: {},
 };
 
-
- export const loadRecipe = async function (id){
- try {
-    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+export const getJSON = async function (url) {
+  try {
+    const fetchPro = fetch(url);
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
     const data = await res.json();
 
-    if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    return data;
+  } catch (err) {
+    console.error(`${err} 💥💥💥💥`);
+    throw err;
+  }
+};
 
+export const loadRecipe = async function (id) {
+  try {
+    const data = await getJSON(`${API_URL}${id}`);
     const { recipe } = data.data;
 
- state.recipe = {
+    state.recipe = {
       id: recipe.id,
       title: recipe.title,
       publisher: recipe.publisher,
@@ -22,9 +34,8 @@ export const state = {
       cookTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
-  console.log('state.recipe:', state.recipe);
   } catch (err) {
-    console.error("Error en loadRecipe:", err);
-    throw err; 
+    console.error(`${err} 💥💥💥💥`);
+    throw err;
   }
 };

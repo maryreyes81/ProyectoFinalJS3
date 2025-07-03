@@ -19,7 +19,8 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "boolean": "^3.2.0"
+    "boolean": "^3.2.0",
+    "fractional": "^1.0.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.15.4",

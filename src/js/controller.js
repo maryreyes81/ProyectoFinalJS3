@@ -1,6 +1,5 @@
-
-import icons  from "url../img.icons.svg";
-import RecipeView from "./views/RecipeView.js";
+import * as model from "./model.js";
+import recipeView from "./views/RecipeView.js";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -10,47 +9,26 @@ const timeout = function (s) {
   });
 };
 
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////
-
-function renderSpinner(parentEl) {
-  const markup = `
-<div class="spinner">
-          <svg>
-            <use href="${icons}icon-loader"></use>
-          </svg>
-        </div>
-        `;
-
-  parentEl.innerHTML = ""; // Limpiar contenido anterior
-  parentEl.insertAdjacentHTML("afterbegin", markup); // Insertar spinner
-}
-
-import * as model from "./model.js";
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
+    console.log(id);
     if (!id) return;
 
     recipeView.renderSpinner(); // Mostrar el spinner
-
-    await model.loadRecipe(id); // Cargar la receta desde el modelo
-
-    // const recipeContainer = document.querySelector(".recipe");
-    // renderSpinner(recipeContainer);
-    // console.log(id);
-
-    recipeView.render(model.state.recipe); // Renderizar la receta
+    await model.loadRecipe(id); // Llamada al modelo
+    // console.log("Receta:", recipe);
+    recipeView.render(model.state.recipe);
   } catch (err) {
-    console.error('Error en controlRecipes:', err);
+    console.error("Error en controlRecipes:", err);
+    alert("No se pudo cargar la receta.");
   }
 };
 
-
-await model.loadRecipe(id); // Llamada al modelo
-console.log("Receta:", recipe);
-recipeView.render(model.state.recipe);
+// Ejecutar controlRecipes cuando cambia el hash o se carga la página
+// ["hashchange", "load"].forEach((ev) => {
+//   window.addEventListener(ev, controlRecipes);
+// });
 
 const resp = await fetch(
   `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
@@ -59,7 +37,6 @@ console.log("Respuesta del fetch:", resp);
 
 const data = await resp.json();
 console.log("Datos de la receta", data);
-
 const recipeData = data.data.recipe; // Aquí se crea la variable recipe
 console.log("Receta:", recipe);
 
@@ -185,27 +162,14 @@ const markup = `
         </div>
         `;
 
-recipeView.render(model.state.recipe);
-  } catch(err) {
-  alert("Error al obtener la receta: " + err.message);
-  console.error("Error al obtener la receta:", err);
-}
-};
-
-
-["hashchange", "load"].forEach((ev) => {
-  window.addEventListener(ev, controlRecipes);
-});
-
-
 const loadRecipe = async function () {
   try {
-    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+    const res = await fetch(
+      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+    );
     if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
-    const data = await res.json;
+    const data = await res.json();
     console.log(recipe);
-
-
   } catch (err) {
     alert("Error en loadRecipe", err);
   }
