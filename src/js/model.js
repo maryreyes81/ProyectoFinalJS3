@@ -5,19 +5,19 @@ export const state = {
   recipe: {},
 };
 
-export const getJSON = async function (url) {
-  try {
-    const fetchPro = fetch(url);
-    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
-    const data = await res.json();
+// export const getJSON = async function (url) {
+//   try {
+//     const fetchPro = fetch(url);
+//     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+//     const data = await res.json();
 
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-    return data;
-  } catch (err) {
-    console.error(`${err} 💥💥💥💥`);
-    throw err;
-  }
-};
+//     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+//     return data;
+//   } catch (err) {
+//     console.error(`${err} 💥💥💥💥`);
+//     throw err;
+//   }
+// };
 
 export const loadRecipe = async function (id) {
   try {
@@ -39,3 +39,22 @@ export const loadRecipe = async function (id) {
     throw err;
   }
 };
+
+async function loadSearchResults(query) {
+  try {
+    const data = await getJSON(`${API_URL}/?search=${query}`);
+    data.data.recipes.map((rec) => {
+      return {
+        id: rec.id,
+        title: rec.title,
+        publisher: rec.publisher,
+        image: rec.image_url,
+      };
+    });
+  } catch (err) {
+    console.log(`${err} 💥💥💥💥`);
+    throw err;
+  }
+}
+
+

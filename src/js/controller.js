@@ -20,53 +20,54 @@ const controlRecipes = async function () {
     // console.log("Receta:", recipe);
     recipeView.render(model.state.recipe);
   } catch (err) {
-    console.error("Error en controlRecipes:", err);
-    alert("No se pudo cargar la receta.");
+    recipeView.renderError();
   }
 };
 
-// Ejecutar controlRecipes cuando cambia el hash o se carga la página
-// ["hashchange", "load"].forEach((ev) => {
-//   window.addEventListener(ev, controlRecipes);
-// });
+//Ejecutar controlRecipes cuando cambia el hash o se carga la página
+function init() {
+  ["hashchange", "load"].forEach((ev) => {
+    window.addEventListener(ev, controlRecipes);
+  });
+}
 
-const resp = await fetch(
-  `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-);
-console.log("Respuesta del fetch:", resp);
+// const resp = await fetch(
+//   `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+// );
+// console.log("Respuesta del fetch:", resp);
 
-const data = await resp.json();
-console.log("Datos de la receta", data);
-const recipeData = data.data.recipe; // Aquí se crea la variable recipe
-console.log("Receta:", recipe);
+// const data = await resp.json();
+// console.log("Datos de la receta", data);
+// const recipeData = data.data.recipe; // Aquí se crea la variable recipe
+// console.log("Receta:", recipe);
 
-const recipe = {
-  id: recipe.id,
-  title: recipe.title,
-  publisher: recipe.publisher,
-  sourceUrl: recipe.source_url,
-  image: recipe.image_url,
-  servings: recipe.servings,
-  cookTime: recipe.cooking_time,
-  ingredients: recipe.ingredients,
-};
+// const recipe = {
+//   id: recipe.id,
+//   title: recipe.title,
+//   publisher: recipe.publisher,
+//   sourceUrl: recipe.source_url,
+//   image: recipe.image_url,
+//   servings: recipe.servings,
+//   cookTime: recipe.cooking_time,
+//   ingredients: recipe.ingredients,
+// };
 
-const ingredientsHTML = recipe.ingredients
-  .map((ing) => {
-    return `
- <li class="recipe__ingredient">
- <svg class="recipe__icon">
- <use href="${icons}#icon-check"></use>
- </svg>
- <div class="recipe__quantity">${ing.quantity}</div>
- <div class="recipe__description">
- <span class="recipe__unit">${ing.unit}</span>
- ${ing.description}
- </div>
- </li>
-  `;
-  })
-  .join("");
+// const ingredientsHTML = recipe.ingredients
+//   .map((ing) => {
+//     return `
+//  <li class="recipe__ingredient">
+//  <svg class="recipe__icon">
+//  <use href="${icons}#icon-check"></use>
+//  </svg>
+//  <div class="recipe__quantity">${ing.quantity}</div>
+//  <div class="recipe__description">
+//  <span class="recipe__unit">${ing.unit}</span>
+//  ${ing.description}
+//  </div>
+//  </li>
+//   `;
+//   })
+//   .join("");
 
 const markup = `
         <figure class="recipe__fig">
@@ -162,15 +163,23 @@ const markup = `
         </div>
         `;
 
-const loadRecipe = async function () {
-  try {
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-    );
-    if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
-    const data = await res.json();
-    console.log(recipe);
-  } catch (err) {
-    alert("Error en loadRecipe", err);
-  }
-};
+// const loadRecipe = async function () {
+//   try {
+//     const res = await fetch(
+//       `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+//     );
+//     if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
+//     const data = await res.json();
+//     console.log(recipe);
+//   } catch (err) {
+//     alert("Error en loadRecipe", err);
+//   }
+// };
+
+// function init() {
+//   controlRecipes;
+// }
+
+init();
+
+model.loadSearchResults("pizza");
