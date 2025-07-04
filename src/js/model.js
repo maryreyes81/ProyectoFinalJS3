@@ -3,6 +3,10 @@ import { timeout, getJSON } from "./helpers.js";
 
 export const state = {
   recipe: {},
+  search: {
+    query: "",
+    results: [],
+  },
 };
 
 // export const getJSON = async function (url) {
@@ -22,6 +26,7 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
+    // if (!res.ok) throw new Error(`${data.message}(${res.status})`);
     const { recipe } = data.data;
 
     state.recipe = {
@@ -40,10 +45,11 @@ export const loadRecipe = async function (id) {
   }
 };
 
-async function loadSearchResults(query) {
+export const loadSearchResults = async function (query) {
   try {
+    state.search.query = query;
     const data = await getJSON(`${API_URL}/?search=${query}`);
-    data.data.recipes.map((rec) => {
+    state.search.results = data.data.recipes.map((rec) => {
       return {
         id: rec.id,
         title: rec.title,
@@ -55,6 +61,4 @@ async function loadSearchResults(query) {
     console.log(`${err} 💥💥💥💥`);
     throw err;
   }
-}
-
-
+};

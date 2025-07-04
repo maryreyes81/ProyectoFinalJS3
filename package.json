@@ -12,7 +12,7 @@
   },
   "license": "ISC",
   "author": "Mary Reyes",
-  "type": "commonjs",
+  "type": "module",
   "source": "index.js",
   "scripts": {
     "start": "parcel index.html",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "boolean": "^3.2.0",
-    "fractional": "^1.0.0"
+    "fracty": "^1.0.12"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.15.4",
