@@ -1,5 +1,4 @@
 import icons from "url:../../img/icons.svg";
-
 class SearchResultsView {
   #parentElement = document.querySelector(".results");
   #errorMessage = "No se encontraron resultados. Intenta con otra búsqueda.";
