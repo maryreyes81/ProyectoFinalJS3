@@ -14,7 +14,7 @@ const timeout = function (s) {
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
-    console.log(id);
+    // console.log(id);
     if (!id) return;
 
     recipeView.renderSpinner(); // Mostrar el spinner
@@ -26,6 +26,7 @@ const controlRecipes = async function () {
   }
 };
 
+
 const controlSearchResults = async function () {
   try {
     const query = searchView.getQuery();
@@ -33,7 +34,7 @@ const controlSearchResults = async function () {
 
     await model.loadSearchResults(query);
     searchResultsView.render(model.state.search.results);
-    console.log(model.state.search.results);
+    // console.log(model.state.search.results);
   } catch (err) {
     console.error(err);
     searchResultsView.renderError(
@@ -44,12 +45,14 @@ const controlSearchResults = async function () {
 
 const initializeApp = async function () {
   recipeView.addHandlerRender(controlRecipes);
-  try {
-    await controlSearchResults();
-  } catch (err) {
-    console.error(err);
-    recipeView.renderError("No se pudieron cargar los resultados de búsqueda.");
-  }
+  searchView.addHandlerSearch(controlSearchResults);
+  // try {
+  //   await controlSearchResults();
+  // } catch (err) {
+  //   console.error(err);
+  //   recipeView.renderError("No se pudieron cargar los resultados de búsqueda.");
+  // }
 };
 
 initializeApp();
+

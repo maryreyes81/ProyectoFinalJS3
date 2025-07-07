@@ -12,14 +12,13 @@
   },
   "license": "ISC",
   "author": "Mary Reyes",
-  "type": "module",
-  "source": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
   "dependencies": {
     "boolean": "^3.2.0",
+    "fraction.js": "^5.2.2",
     "fracty": "^1.0.12"
   },
   "devDependencies": {
