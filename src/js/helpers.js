@@ -1,24 +1,5 @@
-export const loadRecipe = async function (id) {
-  try {
-    const res = await fetch(`${API_URL}${id}`);
-    if (!res.ok) throw new Error(`Error al cargar la receta (${res.status})`);
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    throw err;
-  }
-};
+import { TIMEOUT_SEC } from "./config.js";
 
-export const getJSON = async function (url) {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    throw err;
-  }
-};
 
 export const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -27,3 +8,23 @@ export const timeout = function (s) {
     }, s * 1000);
   });
 };
+
+export const getJSON = async function (url) {
+  try {
+
+    const fetchPro = fetch(url);
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+
+
+
+
