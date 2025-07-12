@@ -1,7 +1,7 @@
 import * as model from "./model.js";
-import recipeView from "./view/RecipeView.js";
-import searchResultsView from "./view/SearchResultsView.js";
-import searchView from "./view/SearchView.js";
+import recipeView from "./views/RecipeView.js";
+import searchResultsView from "./views/SearchResultsView.js";
+import searchView from "./viewsSearchView.js";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
