@@ -1,5 +1,5 @@
 import icons from "url:../../img/icons.svg";
-export class View {
+export  default class View {
 
 render(data) {
     this._data = data;
