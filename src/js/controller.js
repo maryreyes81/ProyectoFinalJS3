@@ -2,6 +2,7 @@ import * as model from "./model.js";
 import recipeView from "./views/RecipeView.js";
 import searchResultsView from "./views/SearchResultsView.js";
 import searchView from "./views/SearchView.js";
+import resultsView from "./views/ResultView.js";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -26,18 +27,23 @@ const controlRecipes = async function () {
   }
 };
 
+// _generateMarkup() {
+//   return this._data.map(this._generateMarkupPreview).join('');
+// }
+
 
 const controlSearchResults = async function () {
   try {
     const query = searchView.getQuery();
     if (!query) return;
 
+    ResultsView.renderSpinner();
     await model.loadSearchResults(query);
-    searchResultsView.render(model.state.search.results);
-    // console.log(model.state.search.results);
+    resultsView.render(model.state.search.results);
+
   } catch (err) {
     console.error(err);
-    searchResultsView.renderError(
+    resultsView.renderError(
       "No se pudieron cargar los resultados de búsqueda."
     );
   }
@@ -46,12 +52,6 @@ const controlSearchResults = async function () {
 const initializeApp = async function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
-  // try {
-  //   await controlSearchResults();
-  // } catch (err) {
-  //   console.error(err);
-  //   recipeView.renderError("No se pudieron cargar los resultados de búsqueda.");
-  // }
 };
 
 initializeApp();

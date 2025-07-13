@@ -1,15 +1,15 @@
 import icons from "url:../../img/icons.svg";
 class SearchResultsView {
-  #parentElement = document.querySelector(".results");
-  #errorMessage = "No se encontraron resultados. Intenta con otra búsqueda.";
+  _parentElement = document.querySelector(".results");
+  _errorMessage = "No se encontraron resultados. Intenta con otra búsqueda.";
 
   render(data) {
-    this.#clear();
-    const markup = this.#generateMarkup(data);
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    this._clear();
+    const markup = this._generateMarkup(data);
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
-  renderError(message = this.#errorMessage) {
+  renderError(message = this._errorMessage) {
     const markup = `
       <div class="error">
         <div>
@@ -20,15 +20,15 @@ class SearchResultsView {
         <p>${message}</p>
       </div>
     `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    this._clear();
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
-  #clear() {
-    this.#parentElement.innerHTML = "";
+  _clear() {
+    this._parentElement.innerHTML = "";
   }
 
-  #generateMarkup(results) {
+  _generateMarkup(results) {
     return results
       .map(
         (result) => `
