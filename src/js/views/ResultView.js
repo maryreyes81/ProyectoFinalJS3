@@ -1,16 +1,18 @@
 import View from "./View.js";
 
 class ResultsView extends View {
-    _parentElement = document.querySelector(".results");
-    _errorMessage = "No recipes found for your query";
-    _message = "";
+  _parentElement = document.querySelector(".results");
+  _errorMessage = "No recipes found for your query";
+  _message = "";
 
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join('');
-    }
+  _generateMarkup() {
+    return this._data
+      .map((result) => this._generateMarkupPreview(result))
+      .join("");
+  }
 
-    _generateMarkupPreview() {
-        result`
+  _generateMarkupPreview(result) {
+    return `
       <li class="preview">
           <a class="preview__link" href="#${result.id}">
             <figure class="preview__fig">
@@ -22,8 +24,8 @@ class ResultsView extends View {
             </div>
           </a>
         </li>
-`
-    }
+`;
+  }
 }
 
 export default new ResultsView();

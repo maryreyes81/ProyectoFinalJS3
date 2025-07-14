@@ -1,8 +1,8 @@
 import icons from "url:../../img/icons.svg";
-export  default class View {
-
-render(data) {
-    if(!data ||(Array.isArray(data) && data.length === 0)) return this.renderError();
+export default class View {
+  render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
     this._data = data;
     const markup = this._generateMarkup();
     this._clear();
@@ -17,6 +17,7 @@ render(data) {
         </svg>
       </div>
     `;
+    this._clear();
     this._parentElement.innerHTML = "";
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
@@ -49,5 +50,9 @@ render(data) {
   `;
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  _clear() {
+    this._parentElement.innerHTML = "";
   }
 }
