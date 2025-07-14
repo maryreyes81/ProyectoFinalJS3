@@ -31,16 +31,14 @@ const controlRecipes = async function () {
 //   return this._data.map(this._generateMarkupPreview).join('');
 // }
 
-
 const controlSearchResults = async function () {
   try {
     const query = searchView.getQuery();
     if (!query) return;
 
-    ResultsView.renderSpinner();
+    resultsView.renderSpinner();
     await model.loadSearchResults(query);
     resultsView.render(model.state.search.results);
-
   } catch (err) {
     console.error(err);
     resultsView.renderError(
@@ -55,4 +53,3 @@ const initializeApp = async function () {
 };
 
 initializeApp();
-
