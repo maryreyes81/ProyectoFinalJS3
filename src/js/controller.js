@@ -3,6 +3,7 @@ import recipeView from "./views/RecipeView.js";
 import searchResultsView from "./views/SearchResultsView.js";
 import searchView from "./views/SearchView.js";
 import resultsView from "./views/ResultView.js";
+import PaginationView from "./views/PaginationViews.js";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -26,10 +27,6 @@ const controlRecipes = async function () {
     recipeView.renderError();
   }
 };
-
-// _generateMarkup() {
-//   return this._data.map(this._generateMarkupPreview).join('');
-// }
 
 const controlSearchResults = async function () {
   try {
