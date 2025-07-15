@@ -6,6 +6,11 @@ class ResultsView extends View {
   _message = "";
 
   _generateMarkup() {
+    if (!Array.isArray(this._data)) {
+      console.error("Expected an array in ResultsView, but got:", this._data);
+      return "";
+    }
+
     return this._data
       .map((result) => this._generateMarkupPreview(result))
       .join("");
