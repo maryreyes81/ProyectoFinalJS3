@@ -8,7 +8,7 @@ class PaginationView extends View {
     this._parentElement.addEventListener("click", function (e) {
       const btn = e.target.closest(".btn--inline");
 
-      const goToPage = btn.dataset.goto;
+      const goToPage = +btn.dataset.goto;
       handler(goToPage);
     });
   }
@@ -31,6 +31,7 @@ class PaginationView extends View {
       </button>
         `;
     }
+    //última página
     if (curPage === numPages && numPages > 1) {
       return `
              <button data-goto="${
