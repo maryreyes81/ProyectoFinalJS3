@@ -1,8 +1,7 @@
 import * as model from "./model.js";
 import recipeView from "./views/RecipeView.js";
-import searchResultsView from "./views/SearchResultsView.js";
 import searchView from "./views/SearchView.js";
-import resultsView from "./views/ResultView.js";
+import resultsView from "./views/SearchResultsView.js";
 import PaginationView from "./views/PaginationViews.js";
 
 const timeout = function (s) {
@@ -47,6 +46,7 @@ const controlSearchResults = async function () {
 };
 
 const controlPagination = function (goToPage) {
+  console.log("Página solicitada:", goToPage);
   // 1. Renderizar los nuevos resultados
   resultsView.render(model.getSearchResultsPage(goToPage));
 
@@ -58,7 +58,6 @@ const initializeApp = async function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
   PaginationView.addHandlerClick(controlPagination);
-
 };
 
 initializeApp();

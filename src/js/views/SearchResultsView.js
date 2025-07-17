@@ -1,4 +1,5 @@
 import icons from "url:../../img/icons.svg";
+
 class SearchResultsView {
   _parentElement = document.querySelector(".results");
   _errorMessage = "No se encontraron resultados. Intenta con otra búsqueda.";
@@ -6,6 +7,18 @@ class SearchResultsView {
   render(data) {
     this._clear();
     const markup = this._generateMarkup(data);
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderSpinner() {
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+    `;
+    this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
@@ -32,18 +45,18 @@ class SearchResultsView {
     return results
       .map(
         (result) => `
-        <li class="preview">
-          <a class="preview__link" href="#${result.id}">
-            <figure class="preview__fig">
-              <img src="${result.image}" alt="${result.title}" />
-            </figure>
-            <div class="preview__data">
-              <h4 class="preview__title">${result.title}</h4>
-              <p class="preview__publisher">${result.publisher}</p>
-            </div>
-          </a>
-        </li>
-      `
+          <li class="preview">
+            <a class="preview__link" href="#${result.id}">
+              <figure class="preview__fig">
+                <img src="${result.image}" alt="${result.title}" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">${result.title}</h4>
+                <p class="preview__publisher">${result.publisher}</p>
+              </div>
+            </a>
+          </li>
+        `
       )
       .join("");
   }
