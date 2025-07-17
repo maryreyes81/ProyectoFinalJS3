@@ -18,42 +18,50 @@ class PaginationView extends View {
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
+    // Página 1 y hay más páginas
     if (curPage === 1 && numPages > 1) {
       return `
-        <button class="btn--inline pagination__btn--next">
-            <span>${curPage + 1}</span>
-            <svg class="search__icon">
-              <use href="${icons}#icon-arrow-right"></use>
-            </svg>
-          </button>
+            <button data-goto="${
+              curPage + 1
+            }" class="btn--inline pagination__btn--next">
+        <span>${curPage + 1}</span>
+        <svg class="search__icon">
+          <use href="${icons}#icon-arrow-right"></use>
+        </svg>
+      </button>
         `;
     }
-    if (curPage === numPages > 1) {
+    if (curPage === numPages && numPages > 1) {
       return `
-<button class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-              <use href="${icons}#icon-arrow-left"></use>
-            </svg>
-            <span>${curPage - 1}</span>
-          </button>
+             <button data-goto="${
+               curPage - 1
+             }" class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+          <use href="${icons}#icon-arrow-left"></use>
+        </svg>
+        <span>${curPage - 1}</span>
+      </button>
 `;
     }
-    if (curPage < numPages && curPage > 1) {
+    if (curPage < numPages) {
       return `
-<button class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-              <use href="${icons}#icon-arrow-left"></use>
-            </svg>
-            <span>${curPage - 1}</span>
-          </button>
-
-<button class="btn--inline pagination__btn--next">
-            <span>${curPage + 1}</span>
-            <svg class="search__icon">
-              <use href="${icons}#icon-arrow-right"></use>
-            </svg>
-          </button>
-`;
+      <button data-goto="${
+        curPage - 1
+      }" class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+          <use href="${icons}#icon-arrow-left"></use>
+        </svg>
+        <span>${curPage - 1}</span>
+      </button>
+      <button data-goto="${
+        curPage + 1
+      }" class="btn--inline pagination__btn--next">
+        <span>${curPage + 1}</span>
+        <svg class="search__icon">
+          <use href="${icons}#icon-arrow-right"></use>
+        </svg>
+      </button>
+    `;
     }
     return "";
   }
