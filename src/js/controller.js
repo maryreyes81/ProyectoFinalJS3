@@ -35,6 +35,9 @@ const controlSearchResults = async function () {
     resultsView.renderSpinner();
     await model.loadSearchResults(query);
 
+    if (model.state.search.results.length === 0)
+      throw new Error("No se encontraron resultados para esta búsqueda.");
+
     resultsView.render(model.getSearchResultsPage());
     PaginationView.render(model.state.search);
   } catch (err) {
