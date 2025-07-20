@@ -63,3 +63,4 @@ class SearchResultsView {
 }
 
 export default new SearchResultsView();
+
