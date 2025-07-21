@@ -2,7 +2,7 @@ import icons from "url:../../img/icons.svg";
 
 class SearchResultsView {
   _parentElement = document.querySelector(".results");
-  _errorMessage = "No se encontraron resultados. Intenta con otra búsqueda.";
+  _errorMessage = "No results found. Please try another query.";
 
   render(data) {
     this._clear();
@@ -42,6 +42,7 @@ class SearchResultsView {
   }
 
   _generateMarkup(results) {
+    console.log("Resultados recibidos:", results);
     return results
       .map(
         (result) => `
@@ -63,4 +64,3 @@ class SearchResultsView {
 }
 
 export default new SearchResultsView();
-

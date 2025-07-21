@@ -15,8 +15,10 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
-    if(!data || !data.data.recipe){
-       throw new Error("No se encontró la receta");
+    // console.log(`URL API para receta: ${API_URL}${id}`);
+    // console.log(data);
+    if (!data || !data.data.recipe) {
+      throw new Error("No se encontró la receta");
     }
     // if (!res.ok) throw new Error(`${data.message}(${res.status})`);
     const { recipe } = data.data;

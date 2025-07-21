@@ -8,6 +8,10 @@ class RecipeView extends View {
   _errorMessage = "We could not find that recipe. Please try another one!";
 
   render(data) {
+    if (!data || Object.keys(data).length === 0) {
+      this.renderError();
+      return;
+    }
     this._data = data;
     const markup = this._generateMarkup();
     this._clear();
