@@ -13,8 +13,8 @@
   "license": "ISC",
   "author": "Mary Reyes",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "start": "parcel docs/index.html",
+    "build": "parcel build docs/index.html --dist-dir ./dist --no-optimize"
   },
   "dependencies": {
     "boolean": "^3.2.0",
