@@ -18,8 +18,7 @@
   },
   "dependencies": {
     "boolean": "^3.2.0",
-    "fraction.js": "^5.2.2",
-    "fracty": "^1.0.12"
+    "fraction.js": "^5.2.2"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.15.4",
